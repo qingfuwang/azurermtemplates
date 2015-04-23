@@ -1,0 +1,7 @@
+{
+  "itemDisplayName": "Setup Bosh deployment enviroment",
+  "description": "It will create a vm for bosh development, storage account, vnet, network security group resource group",
+  "summary": "Setup Bosh deployment enviroment",
+  "githubUsername": "qingfuwang",
+  "dateUpdated": "2015-04-23"
+}
