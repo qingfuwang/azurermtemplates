@@ -22,7 +22,7 @@
         },
         "vmSize": {
             "type": "string",
-            "defaultValue": "Standard_A0"
+            "defaultValue": "Standard_A1"
         },
         "publicIPAddressName": {
         "type": "string",
@@ -30,8 +30,7 @@
         },
       "imageUri": {
             "type": "string",
-        "defaultValue": "http://qingfu2.blob.core.windows.net/vhdspublic/Wide.png",
-         "allowedValues": ["http://qingfu2.blob.core.windows.net/vhdspublic/Wide.png"]
+        "defaultValue": "http://qingfu2.blob.core.windows.net/vhdspublic/bosh_azure_423.vhd"
         },
         "vmName": {
             "type": "string",
