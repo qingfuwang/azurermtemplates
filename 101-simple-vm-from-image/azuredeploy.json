@@ -155,12 +155,9 @@
 
         },
         "storageProfile": {
-            "imageReference": {
-                    "publisher": "Canonical",
-                    "offer": "UbuntuServer",
-                    "sku" : "14.10",
-                    "version":"latest"
-                },
+        "sourceImage": {
+        "id":  "[concat('/', subscription().subscriptionId,'/services/images/','b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_10-amd64-server-20150416-en-us-30GB')]"
+      },
          
           "osDisk": {
             "name": "osDiskName",
