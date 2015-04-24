@@ -179,7 +179,7 @@
               "vhd": {"uri":"[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('vmName'),'datadisk1.vhd')]"}
             }
           ]
-        },
+       
         "networkProfile": {
           "networkInterfaces": [
             {
