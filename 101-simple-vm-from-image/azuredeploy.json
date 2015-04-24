@@ -4,17 +4,19 @@
   "parameters": {
     "newStorageAccountName": {
       "type": "string",
-      "defaultValue": "uniqueStorageAccountName"
+      "defaultValue": "qingfubosh9"
     },
     "dnsNameForPublicIP": {
       "type": "string",
-      "defaultValue": "uniqueDnsNameForPublicIP"
+      "defaultValue": "qingfubhosh910"
     },
     "adminUserName": {
-      "type": "string"
+      "type": "string",
+          "defaultValue": "azueruser"
     },
     "adminPassword": {
-      "type": "securestring"
+      "type": "securestring",
+       "defaultValue": "User@123"
     },
     "location": {
       "type": "String",
@@ -26,7 +28,7 @@
     },
     "publicIPAddressName": {
       "type": "string",
-      "defaultValue": "myPublicIP"
+      "defaultValue": "myPublicIP9"
     },
     "imageUri": {
       "type": "string",
@@ -34,7 +36,7 @@
     },
     "vmName": {
       "type": "string",
-      "defaultValue": "myVM"
+      "defaultValue": "myVM3"
     },
     "virtualNetworkName": {
       "type": "string",
@@ -42,7 +44,7 @@
     },
     "nicName": {
       "type": "string",
-      "defaultValue": "myNIC"
+      "defaultValue": "myNIC3"
     }
   },
   "variables": {
@@ -158,8 +160,7 @@
         "sourceImage": {
         "id":  "[concat('/', subscription().subscriptionId,'/services/images/','b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_10-amd64-server-20150416-en-us-30GB')]"
       },
-          "destinationVhdsContainer": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/','vmdisk','/')]"
-          },
+          "destinationVhdsContainer": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/','vmdisk','/')]",
              "dataDisks": [
             {
               "name": "datadisk1",
@@ -231,3 +232,4 @@
     }
   ]
 }
+
