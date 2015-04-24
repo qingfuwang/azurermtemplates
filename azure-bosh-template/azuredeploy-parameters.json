@@ -1,41 +1,26 @@
 {
     "storageAccountName": {
-        "value": "armdeployspark1"
+        "value": "boshstorage"
     },
     "adminUsername": {
-        "value": "adminuser"
+        "value": "bosh"
     },
     "adminPassword": {
-        "value": "azure@1234"
+        "value": "bosh"
     },
     "region": {
         "value": "West US"
     },
     "virtualNetworkName": {
-        "value": "sparkClustVnet"
+        "value": "vnet"
     },
     "subnetName": {
-        "value": "Subnet1"
+        "value": "Subnet-1"
     },
     "addressPrefix": {
         "value": "10.0.0.0/16"
     },
     "subnetPrefix": {
         "value": "10.0.0.0/24"
-    },
-    "sparkVersion": {
-        "value": "3.0.0"
-    },
-    "sparkClusterName": {
-        "value": "spark-arm-cluster"
-    },
-    "sparkNodeIPAddressPrefix": {
-        "value": "10.0.0.1"
-    },
-    "jumpbox": {
-        "value": "enabled"
-    },
-    "tshirtSize":  {
-        "value": "S"
     }
 }
