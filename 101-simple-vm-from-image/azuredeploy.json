@@ -160,8 +160,8 @@
                     "offer": "UbuntuServer",
                     "sku" : "14.10",
                     "version":"latest"
-                }
-         },
+                },
+         
           "osDisk": {
             "name": "osDiskName",
             "osType": "linux",
@@ -179,7 +179,7 @@
               "vhd": {"uri":"[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('vmName'),'datadisk1.vhd')]"}
             }
           ]
-       
+       },
         "networkProfile": {
           "networkInterfaces": [
             {
