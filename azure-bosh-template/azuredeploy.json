@@ -155,8 +155,7 @@
           "sourceImage": {
             "id": "[variables('sourceImageName')]"
           },
-          "destinationVhdsContainer": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/')]",
-          "dataDisks": [
+           "dataDisks": [
             {
               "name": "datadisk1",
               "diskSizeGB": "30",
