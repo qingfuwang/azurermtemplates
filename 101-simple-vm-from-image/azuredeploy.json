@@ -158,14 +158,7 @@
         "sourceImage": {
         "id":  "[concat('/', subscription().subscriptionId,'/services/images/','b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_10-amd64-server-20150416-en-us-30GB')]"
       },
-         
-          "osDisk": {
-            "name": "osDiskName",
-            "osType": "linux",
-            "createOption": "fromImage",
-            "vhd": {
-              "uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('vmName'),'osdisk.vhd')]"
-            }
+          "destinationVhdsContainer": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/','vmdisk','/')]"
           },
              "dataDisks": [
             {
