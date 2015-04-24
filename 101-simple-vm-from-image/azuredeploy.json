@@ -30,7 +30,7 @@
         },
       "imageUri": {
             "type": "string",
-        "defaultValue": "http://qingfu2.blob.core.windows.net/vhdspublic/bosh_azure_423.vhd"
+        "defaultValue": "http://qingfubosh10.blob.core.windows.net/vhds/osdisk.vhd"
         },
         "vmName": {
             "type": "string",
@@ -54,7 +54,6 @@
         "vmStorageAccountContainerName": "vhds",
         "publicIPAddressType" : "Dynamic",
         "storageAccountType": "Standard_LRS",
-        "sourceImageName" : "[concat('/', subscription().subscriptionId, '/services/images/',parameters('vmSourceImageName'))]",
         "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
         "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]"
     },
