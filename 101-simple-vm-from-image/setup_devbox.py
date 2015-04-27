@@ -16,6 +16,10 @@ call("mkdir -p ./bosh/.ssh",shell=True)
 
 
 settings= hutil.get_public_settings()
+if "some_id" in settings:
+    id = settings["some_id"]
+    resourcegroup = id.split("/")[4]
+    settings["resourcegroup"]=resourcegroup
 
 for f in ['micro_bosh.yml','update_os.sh','deploy_micro_bosh.sh','install_bosh_client.sh']:
     with open (f,"r") as tmpfile:
@@ -37,6 +41,6 @@ call("cp -r ./bosh /home/"+settings['username'],shell=True)
 call("chown -R "+settings['username']+" "+"/home/"+settings['username'],shell=True)
 call("sh bosh/install_bosh_client.sh",shell=True)
 call("/usr/local/bin/azure config mode asm",shell=True)
-call("/usr/local/bin/azure storage container create --container stemcell -a "+settings['storageaccount']+"-k "+settings['storagekey'],shell=True)
-call("/usr/local/bin/azure storage blob copy start  --dest-account-name "+settings['storageaccount']+"  --dest-container stemcell --dest-blob stemcell.vhd --source-uri '"+settings['stemcelluri']+"' --dest-account-key '"+settings['storagekey']+"' --quiet",shell=True)
+call("/usr/local/bin/azure storage container create --container stemcell -a "+settings['storageaccount']+" -k "+settings['storagekey'],shell=True)
+call("/usr/local/bin/azure storage blob copy start  --dest-account-name "+settings['storageaccount']+"  --dest-container stemcell --dest-blob stemcell.vhd --source-uri '"+settings['stemcell']+"' --dest-account-key '"+settings['storagekey']+"' --quiet",shell=True)
 exit(0)

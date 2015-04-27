@@ -45,5 +45,8 @@ cloud:
       subscription_id: #subscriptionid#
       storage_account_name: #storageaccount#
       storage_access_key: #storagekey#
-
+      resource_group_name: #resourcegroup#
+      #client_id:
+      #client_secret:
+      #tenant_id:
 
