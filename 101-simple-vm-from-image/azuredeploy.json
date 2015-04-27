@@ -49,6 +49,7 @@
     "subnet2Prefix": "10.0.1.0/24",
     "vmStorageAccountContainerName": "vhds",
     "publicIPAddressType": "Dynamic",
+     "networksercuritygroup_name": "bosh",
     "storageAccountType": "Standard_LRS",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
     "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
@@ -108,6 +109,9 @@
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('networksercuritygroup_name'))]"
+      ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -118,13 +122,19 @@
           {
             "name": "[variables('subnet1Name')]",
             "properties": {
-              "addressPrefix": "[variables('subnet1Prefix')]"
+              "addressPrefix": "[variables('subnet1Prefix')]",
+                "networkSecurityGroup": {
+              "id":  "[resourceId('Microsoft.Network/networkSecurityGroups',variables('networksercuritygroup_name'))]"
+              }
             }
           },
           {
             "name": "[variables('subnet2Name')]",
             "properties": {
-              "addressPrefix": "[variables('subnet2Prefix')]"
+              "addressPrefix": "[variables('subnet2Prefix')]",
+                "networkSecurityGroup": {
+            "id":  "[resourceId('Microsoft.Network/networkSecurityGroups',variables('networksercuritygroup_name'))]"
+              }
             }
           }
         ]
@@ -239,7 +249,7 @@
     {
       "apiVersion": "2014-12-01-preview",
       "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "bosh",
+      "name": "[variables('networksercuritygroup_name')]",
       "location": "[parameters('location')]",
       "properties": {
         "securityRules": [

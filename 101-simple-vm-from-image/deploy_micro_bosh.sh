@@ -1,5 +1,5 @@
 #!/bin/sh
-azure mode config asm 
+azure config mode asm 
 azure storage blob copy  show -a "#storageaccount#" -k "#storagekey#" --blob stemcell.vhd --container stemcell
 echo "IF status is pending state, please wait"
 rm run.log >/dev/null 2>&1

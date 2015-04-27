@@ -40,7 +40,9 @@ call("cp myPrivateKey.key ./bosh/.ssh/bosh.key",shell=True)
 call("cp -r ./bosh /home/"+settings['username'],shell=True)
 call("chown -R "+settings['username']+" "+"/home/"+settings['username'],shell=True)
 call("sh bosh/install_bosh_client.sh",shell=True)
-call("/usr/local/bin/azure config mode asm",shell=True)
-call("/usr/local/bin/azure storage container create --container stemcell -a "+settings['storageaccount']+" -k "+settings['storagekey'],shell=True)
-call("/usr/local/bin/azure storage blob copy start  --dest-account-name "+settings['storageaccount']+"  --dest-container stemcell --dest-blob stemcell.vhd --source-uri '"+settings['stemcell']+"' --dest-account-key '"+settings['storagekey']+"' --quiet",shell=True)
+
+call(["echo","-H","-u",settings['username'],"bash","-c","azure config mode asm"])
+call( ["sudo","-H","-u",settings['username'],"bash","-c","azure storage container create --container stemcell -a "+settings['storageaccount']+" -k "+settings['storagekey']])
+call( ["sudo","-H","-u",settings['username'],"bash","-c","azure storage blob copy start  --dest-account-name "+settings['storageaccount']+"  --dest-container stemcell --dest-blob stemcell.vhd --source-uri '"+settings['stemcell']+"' --dest-account-key '"+settings['storagekey']+"' --quiet"])
+
 exit(0)
