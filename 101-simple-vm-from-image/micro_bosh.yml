@@ -46,6 +46,4 @@ cloud:
       storage_account_name: #storageaccount#
       storage_access_key: #storagekey#
 
-      #ssh_certificate: |
 
-      #ssh_private_key: |

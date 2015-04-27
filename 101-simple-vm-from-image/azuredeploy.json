@@ -194,9 +194,9 @@
         "typeHandlerVersion": "1.2",
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/qingfuwang/azurermtemplates/tree/master/101-simple-vm-from-image/launch_script.sh"
+            "https://raw.githubusercontent.com/qingfuwang/azurermtemplates/master/101-simple-vm-from-image/launch_script.sh"
           ],
-           "commandToExecute": "sh launch_script.sh https://raw.githubusercontent.com/qingfuwang/azurermtemplates/tree/master/101-simple-vm-from-image",
+           "commandToExecute": "sh launch_script.sh https://raw.githubusercontent.com/qingfuwang/azurermtemplates/master/101-simple-vm-from-image",
           "newStorageAccountName:":"abc",
           "virtualNetworkName":"123",
           "storagekey":"storageke",
@@ -207,7 +207,7 @@
           "storageaccount":"abc",
           "subscriptionid":"1234",
           "username":"abc",
-          "stemcelluri":"stemcelluri"
+          "stemcell":"stemcell"
         }
       }
     },

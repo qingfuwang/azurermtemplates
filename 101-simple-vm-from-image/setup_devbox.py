@@ -3,6 +3,7 @@ import Utils.HandlerUtil as Util
 import commands
 import os
 import re
+import json
 waagent.LoggerInit('/var/log/waagent.log','/dev/stdout')
 hutil =  Util.HandlerUtility(waagent.Log, waagent.Error, "bosh-deploy-script")
 hutil.do_parse_context("enable")
