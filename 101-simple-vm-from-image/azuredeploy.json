@@ -4,11 +4,11 @@
   "parameters": {
     "newStorageAccountName": {
       "type": "string",
-      "defaultValue": "qingfubosh9"
+      "defaultValue": "boshstorage"
     },
     "dnsNameForPublicIP": {
       "type": "string",
-      "defaultValue": "qingfubosh910"
+      "defaultValue": "boshdev1"
     },
     "adminUserName": {
       "type": "string",
@@ -16,7 +16,7 @@
     },
     "adminPassword": {
       "type": "securestring",
-      "defaultValue": "User@123"
+      "defaultValue": "bosh@123"
     },
     "location": {
       "type": "String",
@@ -26,29 +26,22 @@
       "type": "string",
       "defaultValue": "Standard_A1"
     },
-    "publicIPAddressName": {
-      "type": "string",
-      "defaultValue": "myPublicIP9"
-    },
     "imageUri": {
       "type": "string",
       "defaultValue": "http://qingfubosh10.blob.core.windows.net/vhds/osdisk.vhd"
     },
     "vmName": {
       "type": "string",
-      "defaultValue": "myVM3"
+      "defaultValue": "bosh_vm1"
     },
     "virtualNetworkName": {
       "type": "string",
       "defaultValue": "myVNET"
-    },
-    "nicName": {
-      "type": "string",
-      "defaultValue": "myNIC3"
     }
   },
   "variables": {
-
+    "nicName":"[parameters('vmName')]",
+    "publicIPAddressName": "[parameters('vmName')]",
     "addressPrefix": "10.0.0.0/16",
     "subnet1Name": "Subnet-1",
     "subnet2Name": "Subnet-2",
@@ -58,7 +51,8 @@
     "publicIPAddressType": "Dynamic",
     "storageAccountType": "Standard_LRS",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]"
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
+     "storageid": "[resourceId('Microsoft.Storage/storageAccounts',parameters('newStorageAccountName'))]"
   },
   "resources": [
     {
@@ -73,13 +67,40 @@
     {
       "apiVersion": "2014-12-01-preview",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIPAddressName')]",
+      "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
         "dnsSettings": {
           "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
         }
+      }
+    },
+    {
+      "apiVersion": "2014-12-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('vmName'),'-microbosh')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "static"
+      }
+    },
+    {
+      "apiVersion": "2014-12-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('vmName'),'-bosh')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "static"
+      }
+    },
+    {
+      "apiVersion": "2014-12-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('vmName'),'-cf')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "static"
       }
     },
     {
@@ -112,10 +133,10 @@
     {
       "apiVersion": "2014-12-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[parameters('nicName')]",
+      "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
         "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
       ],
       "properties": {
@@ -125,7 +146,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
               },
               "subnet": {
                 "id": "[variables('subnet1Ref')]"
@@ -142,7 +163,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('nicName'))]"
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
         "hardwareProfile": {
@@ -175,7 +196,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nicName'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
             }
           ]
         }
@@ -197,17 +218,20 @@
             "https://raw.githubusercontent.com/qingfuwang/azurermtemplates/master/101-simple-vm-from-image/launch_script.sh"
           ],
            "commandToExecute": "sh launch_script.sh https://raw.githubusercontent.com/qingfuwang/azurermtemplates/master/101-simple-vm-from-image",
-          "newStorageAccountName:":"abc",
-          "virtualNetworkName":"123",
-          "storagekey":"storageke",
-          "vnet":"vnet",
-          "subnet":"subnet",
-          "vip":"vip",
-          "ip":"ip",
-          "storageaccount":"abc",
-          "subscriptionid":"1234",
-          "username":"abc",
-          "stemcell":"stemcell"
+          "newStorageAccountName:":"[parameters('newStorageAccountName')]",
+          "virtualNetworkName":"[parameters('virtualNetworkName')]",
+          "storagekey":"[listKeys(variables('storageid'),'2014-12-01-preview').key1]",
+          "vnet":"[parameters('virtualNetworkName')]",
+          "subnet":"Subnet-1",
+          "vip": "[reference(concat(parameters('vmName'),'-microbosh')).ipAddress]",
+          "microboship": "[reference(concat(parameters('vmName'),'-microbosh')).ipAddress]",
+          "boship": "[reference(concat(parameters('vmName'),'-bosh')).ipAddress]",
+          "cfip":"[reference(concat(parameters('vmName'),'-cf')).ipAddress]",
+          "ip":"10.0.0.10",
+          "storageaccount":"[parameters('newStorageAccountName')]",
+          "subscriptionid":"[subscription().subscriptionId]",
+          "username":"[parameters('adminUserName')]",
+          "stemcell":"bosh4"
         }
       }
     },
