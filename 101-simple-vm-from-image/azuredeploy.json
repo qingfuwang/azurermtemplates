@@ -8,15 +8,15 @@
     },
     "dnsNameForPublicIP": {
       "type": "string",
-      "defaultValue": "qingfubhosh910"
+      "defaultValue": "qingfubosh910"
     },
     "adminUserName": {
       "type": "string",
-          "defaultValue": "azueruser"
+      "defaultValue": "azueruser"
     },
     "adminPassword": {
       "type": "securestring",
-       "defaultValue": "User@123"
+      "defaultValue": "User@123"
     },
     "location": {
       "type": "String",
@@ -48,6 +48,7 @@
     }
   },
   "variables": {
+
     "addressPrefix": "10.0.0.0/16",
     "subnet1Name": "Subnet-1",
     "subnet2Name": "Subnet-2",
@@ -157,26 +158,56 @@
 
         },
         "storageProfile": {
-        "sourceImage": {
-        "id":  "[concat('/', subscription().subscriptionId,'/services/images/','b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_10-amd64-server-20150416-en-us-30GB')]"
-      },
+          "sourceImage": {
+            "id": "[concat('/', subscription().subscriptionId,'/services/images/','b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_10-amd64-server-20150416-en-us-30GB')]"
+          },
           "destinationVhdsContainer": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/','vmdisk','/')]",
-             "dataDisks": [
+          "dataDisks": [
             {
               "name": "datadisk1",
               "diskSizeGB": "30",
               "lun": 0,
               "createOption": "empty",
-              "vhd": {"uri":"[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('vmName'),'datadisk1.vhd')]"}
+              "vhd": { "uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('vmName'),'datadisk1.vhd')]" }
             }
           ]
-       },
+        },
         "networkProfile": {
           "networkInterfaces": [
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nicName'))]"
             }
           ]
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/newuserscript')]",
+      "apiVersion": "2014-12-01-preview",
+      "location": "[parameters('location')]",
+      "dependsOn": ["[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.OSTCExtensions",
+        "type": "CustomScriptForLinux",
+        "typeHandlerVersion": "1.2",
+        "settings": {
+          "fileUris": [
+            "https://github.com/qingfuwang/azurermtemplates/tree/master/101-simple-vm-from-image/launch_script.sh"
+          ],
+           "commandToExecute": "sh launch_script.sh https://github.com/qingfuwang/azurermtemplates/tree/master/101-simple-vm-from-image",
+          "newStorageAccountName:":"abc",
+          "virtualNetworkName":"123",
+          "storagekey":"storageke",
+          "vnet":"vnet",
+          "subnet":"subnet",
+          "vip":"vip",
+          "ip":"ip",
+          "storageaccount":"abc",
+          "subscriptionid":"1234",
+          "username":"abc",
+          "stemcelluri":"stemcelluri"
         }
       }
     },
