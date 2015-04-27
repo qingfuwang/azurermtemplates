@@ -13,7 +13,7 @@ network:
     virtual_network_name: #vnet#
     subnet_name: #subnet#
     tcp_endpoints:
-    - 22:22
+    - "22:22"
     - 4222:4222
     - 6868:6868
     - 25250:25250
