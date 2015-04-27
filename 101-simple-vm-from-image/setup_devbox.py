@@ -39,4 +39,4 @@ call("sh bosh/install_bosh_client.sh",shell=True)
 call("/usr/local/bin/azure config mode asm",shell=True)
 call("/usr/local/bin/azure storage container create --container stemcell -a "+settings['storageaccount']+"-k "+settings['storagekey'],shell=True)
 call("/usr/local/bin/azure storage blob copy start  --dest-account-name "+settings['storageaccount']+"  --dest-container stemcell --dest-blob stemcell.vhd --source-uri '"+settings['stemcelluri']+"' --dest-account-key '"+settings['storagekey']+"' --quiet",shell=True)
-exit 0
+exit(0)
