@@ -46,6 +46,10 @@ cloud:
       storage_account_name: #storageaccount#
       storage_access_key: #storagekey#
       resource_group_name: #resourcegroup#
+      management_certificate: |
+        PLACEHOLD
+        HELLO
+
       #client_id:
       #client_secret:
       #tenant_id:
